@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Test building image.
-        run: cd sid && docker build -t debian-sid .
+        run: cd 2 && docker build -t debian-2 .
 
       - name: Run the built image.
         run: docker run --name test-2 -d --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro debian-2
@@ -50,8 +50,8 @@ jobs:
       - name: Build and push image.
         uses: docker/build-push-action@v2
         with:
-          context: sid/
-          file: sid/Dockerfile
+          context: 2/
+          file: 2/Dockerfile
           platforms: linux/amd64
           push: true
           tags: ${{ github.repository }}:latest, ${{ github.repository }}:2, ${{ github.repository }}:2.0.20211201.0
