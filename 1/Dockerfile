@@ -9,7 +9,7 @@ RUN yum -y update; yum clean all
 
 # Install requirements.
 RUN yum makecache fast \
- && yum -y install deltarpm epel-release initscripts \
+ && yum -y install deltarpm epel-release initscripts systemd systemd-sysv \
  && yum -y update \
  && yum -y install \
       sudo \
