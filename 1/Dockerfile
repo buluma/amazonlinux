@@ -1,32 +1,11 @@
 FROM amazonlinux:1
-LABEL maintainer="Michael Buluma"
+
+LABEL maintainer="Michael Buluma <me@buluma.co.ke>"
+LABEL build_date="2022-02-05"
+
 ENV container=docker
 
-ENV pip_packages "ansible"
-
-# Install systemd -- See https://hub.docker.com/_/centos/
-RUN yum -y update; yum clean all
-
-# Install requirements.
-RUN yum makecache fast \
- && yum -y install deltarpm epel-release initscripts systemd systemd-sysv \
- && yum -y update \
- && yum -y install \
-      sudo \
-      ansible \
-      which \
-      python-pip \
- && yum clean all
-
-# Install Ansible via Pip.
-# RUN pip install $pip_packages
-
-# Disable requiretty.
-RUN sed -i -e 's/^\(Defaults\s*requiretty\)/#--- \1/'  /etc/sudoers
-
-# Install Ansible inventory file.
-RUN mkdir -p /etc/ansible
-RUN echo -e '[local]\nlocalhost ansible_connection=local' > /etc/ansible/hosts
+RUN yum -y install upstart
 
 VOLUME ["/sys/fs/cgroup"]
-CMD ["/usr/lib/systemd/systemd"]
+CMD ["/sbin/init"]
