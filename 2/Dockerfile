@@ -7,9 +7,9 @@ ENV pip_packages "ansible"
 # Install systemd -- See https://hub.docker.com/_/centos/
 RUN yum -y update; yum clean all
 
-# Install requirements.
+# Install requirements. # TODO https://github.com/robertdebock/docker-amazonlinux-systemd/blob/master/Dockerfile
 RUN yum makecache fast \
- && yum -y install deltarpm epel-release initscripts \
+ && yum -y install deltarpm epel-release initscripts systemd \
  && yum -y update \
  && yum -y install \
       sudo \
