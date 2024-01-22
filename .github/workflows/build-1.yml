@@ -49,6 +49,5 @@ jobs:
         with:
           context: 1/
           file: 1/Dockerfile
-          platforms: linux/amd64, linux/arm64v8
           push: true
           tags: ${{ github.repository }}:2018.03, ${{ github.repository }}:1, ${{ github.repository }}:2018.03.0.20231218.0
