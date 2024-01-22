@@ -52,6 +52,6 @@ jobs:
         with:
           context: 2/
           file: 2/Dockerfile
-          platforms: linux/amd64
+          platforms: linux/amd64, linux/arm64v8
           push: true
-          tags: ${{ github.repository }}:latest, ${{ github.repository }}:2, ${{ github.repository }}:2.0.20211201.0
+          tags: ${{ github.repository }}:2, ${{ github.repository }}:2.0.20240109.0

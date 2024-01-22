@@ -1,14 +1,14 @@
 ---
-name: Build 2018.03-1
+name: Build latest-2023
 
 on:
   pull_request:
   push:
     paths:
-      - '1/**'
-      - '.github/workflows/build-1.yml'
+      - '2023/**'
+      - '.github/workflows/build-2023.yml'
   schedule:
-    - cron: '40 3/13,21 * * *'
+    - cron: '20 3/13,21 * * *'
   workflow_dispatch:
 
 jobs:
@@ -21,10 +21,13 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Test building image.
-        run: cd 1 && docker build -t amazonlinux-1 .
+        run: cd 2023 && docker build -t amazonlinux-2023 .
 
       - name: Run the built image.
-        run: docker run --name test-1 -d --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro amazonlinux-1
+        run: docker run --name amazonlinux-2023 -d --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro amazonlinux-2023
+
+      - name: Verify Ansible is accessible in the built image.
+        run: docker exec --tty amazonlinux-2023 env TERM=xterm ansible --version
 
   # If on master branch, build and release image.
   release:
@@ -47,8 +50,8 @@ jobs:
       - name: Build and push image.
         uses: docker/build-push-action@v2
         with:
-          context: 1/
-          file: 1/Dockerfile
+          context: 2023/
+          file: 2023/Dockerfile
           platforms: linux/amd64, linux/arm64v8
           push: true
-          tags: ${{ github.repository }}:2018.03, ${{ github.repository }}:1, ${{ github.repository }}:2018.03.0.20231218.0
+          tags: ${{ github.repository }}:latest, ${{ github.repository }}:2023, ${{ github.repository }}:2023.3.20240117.0
