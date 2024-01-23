@@ -4,7 +4,7 @@ ENV container=docker
 
 ENV pip_packages "ansible"
 
-RUN yum install 'dnf-command(yum)
+RUN yum install 'dnf-command(yum)'
 
 # Install systemd -- See https://hub.docker.com/_/centos/
 RUN yum -y update; yum clean all
