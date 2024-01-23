@@ -54,4 +54,4 @@ jobs:
           file: 2023/Dockerfile
           # platforms: linux/amd64, linux/arm64v8
           push: true
-          tags: ${{ github.repository }}:latest, ${{ github.repository }}:2023, ${{ github.repository }}:2023.3.20240117.0
+          tags: ${{ github.repository }}:2023, ${{ github.repository }}:2023.3.20240117.0
