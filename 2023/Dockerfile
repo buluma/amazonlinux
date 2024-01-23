@@ -13,8 +13,9 @@ RUN dnf -y install deltarpm epel-release initscripts systemd \
  && dnf -y install \
       sudo \
       which \
-      python-pip \
- && dnf clean all
+      python-pip
+
+RUN dnf clean all
 
 # Install Ansible via Pip.
 RUN pip install $pip_packages
