@@ -8,7 +8,8 @@ ENV pip_packages "ansible"
 RUN dnf -y update; dnf clean all
 
 # Install requirements. # TODO https://github.com/robertdebock/docker-amazonlinux-systemd/blob/master/Dockerfile
-RUN dnf -y install deltarpm epel-release initscripts systemd \
+# RUN dnf -y install deltarpm epel-release initscripts systemd \
+RUN dnf -y install initscripts systemd \
  && dnf -y update \
  && dnf -y install \
       sudo \
