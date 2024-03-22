@@ -1,5 +1,6 @@
 FROM amazonlinux:2023
 LABEL maintainer="Michael Buluma"
+LABEL build_date="2024-03-22"
 ENV container=docker
 
 ENV pip_packages "ansible"
