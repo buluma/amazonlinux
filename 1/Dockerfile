@@ -1,7 +1,7 @@
 FROM amazonlinux:1
 
 LABEL maintainer="Michael Buluma <me@buluma.co.ke>"
-LABEL build_date="2022-02-05"
+LABEL build_date="2024-03-22"
 
 ENV container=docker
 
