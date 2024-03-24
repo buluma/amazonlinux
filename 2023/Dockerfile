@@ -1,33 +1,20 @@
-FROM amazonlinux:2023
-LABEL maintainer="Michael Buluma"
-LABEL build_date="2024-03-22"
+FROM amazonlinux
+
+LABEL maintainer="Shadow Walker<bulumaknight@gmail.com>"
+LABEL build_date="2024-03-24"
+
 ENV container=docker
 
-ENV pip_packages "ansible"
-
-# Install systemd -- See https://hub.docker.com/_/centos/
-RUN dnf -y update; dnf clean all
-
-# Install requirements. # TODO https://github.com/robertdebock/docker-amazonlinux-systemd/blob/master/Dockerfile
-# RUN dnf -y install deltarpm epel-release initscripts systemd \
-RUN dnf -y install initscripts systemd \
- && dnf -y update \
- && dnf -y install \
-      sudo \
-      which \
-      python-pip
-
-RUN dnf clean all
-
-# Install Ansible via Pip.
-RUN pip install $pip_packages
-
-# Disable requiretty.
-RUN sed -i -e 's/^\(Defaults\s*requiretty\)/#--- \1/'  /etc/sudoers
-
-# Install Ansible inventory file.
-RUN mkdir -p /etc/ansible
-RUN echo -e '[local]\nlocalhost ansible_connection=local' > /etc/ansible/hosts
+RUN yum -y install systemd ; \
+    cd /lib/systemd/system/sysinit.target.wants/ ; \
+    for i in *; do [ $i = systemd-tmpfiles-setup.service ] || rm -f $i ; done ; \
+    rm -f /lib/systemd/system/multi-user.target.wants/* ; \
+    rm -f /etc/systemd/system/*.wants/* ; \
+    rm -f /lib/systemd/system/local-fs.target.wants/* ; \
+    rm -f /lib/systemd/system/sockets.target.wants/*udev* ; \
+    rm -f /lib/systemd/system/sockets.target.wants/*initctl* ; \
+    rm -f /lib/systemd/system/basic.target.wants/* ; \
+    rm -f /lib/systemd/system/anaconda.target.wants/*
 
 VOLUME ["/sys/fs/cgroup"]
-CMD ["/usr/lib/systemd/systemd"]
+CMD ["/sbin/init"]
