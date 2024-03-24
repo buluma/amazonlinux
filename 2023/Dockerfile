@@ -1,4 +1,4 @@
-FROM amazonlinux
+FROM amazonlinux:2
 
 LABEL maintainer="Shadow Walker<bulumaknight@gmail.com>"
 LABEL build_date="2024-03-24"
